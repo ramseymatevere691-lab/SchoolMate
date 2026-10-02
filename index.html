@@ -1,0 +1,1062 @@
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f3f6fb;
+  color: #172033;
+}
+
+.app {
+  max-width: 1100px;
+  margin: auto;
+  min-height: 100vh;
+}
+
+/* HEADER */
+header {
+  background: linear-gradient(135deg, #075e54, #0b8f7f);
+  color: white;
+  padding: 25px 18px;
+  text-align: center;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 30px;
+}
+
+header p {
+  margin: 8px 0 0;
+  opacity: 0.9;
+}
+
+/* CONTROLS */
+.controls {
+  background: white;
+  padding: 18px;
+  border-bottom: 1px solid #ddd;
+}
+
+.control {
+  margin-bottom: 15px;
+}
+
+.control:last-child {
+  margin-bottom: 0;
+}
+
+.control label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 7px;
+}
+
+select,
+input {
+  display: block;
+  width: 100%;
+  padding: 13px;
+  border: 1px solid #ccd3df;
+  border-radius: 10px;
+  background: white;
+  font-size: 16px;
+}
+
+/* SEARCH */
+.search-box {
+  padding: 15px 18px;
+  background: #f8fafc;
+}
+
+/* SUBJECTS */
+.section-title {
+  padding: 20px 18px 10px;
+  margin: 0;
+}
+
+.subject-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(145px, 1fr));
+  gap: 12px;
+  padding: 10px 18px 20px;
+}
+
+.subject-card {
+  background: white;
+  border: 2px solid #e1e6ee;
+  border-radius: 14px;
+  padding: 18px 10px;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.2s;
+  min-height: 105px;
+}
+
+.subject-card:hover {
+  border-color: #07866f;
+  transform: translateY(-2px);
+}
+
+.subject-card.active {
+  background: #e7f8f4;
+  border-color: #07866f;
+}
+
+.subject-icon {
+  font-size: 30px;
+  margin-bottom: 8px;
+}
+
+.subject-name {
+  font-weight: bold;
+  font-size: 14px;
+}
+
+/* CONTENT */
+.content {
+  background: white;
+  margin: 0 18px 25px;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 3px 15px rgba(0,0,0,0.06);
+}
+
+.content-header {
+  padding: 20px;
+  background: #075e54;
+  color: white;
+}
+
+.content-header h2 {
+  margin: 0 0 5px;
+}
+
+.content-header p {
+  margin: 0;
+  opacity: 0.9;
+}
+
+/* TABS */
+.tabs {
+  display: flex;
+  border-bottom: 1px solid #ddd;
+  overflow-x: auto;
+}
+
+.tab {
+  flex: 1;
+  min-width: 100px;
+  padding: 14px;
+  border: none;
+  background: white;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.tab.active {
+  color: #075e54;
+  border-bottom: 3px solid #075e54;
+}
+
+/* TAB CONTENT */
+.tab-content {
+  padding: 20px;
+  line-height: 1.65;
+}
+
+.note-box,
+.activity-box,
+.exam-box,
+.teacher-box {
+  background: #f7f9fc;
+  border-left: 4px solid #07866f;
+  padding: 15px;
+  margin-bottom: 12px;
+  border-radius: 8px;
+}
+
+.activity-box {
+  border-left-color: #f39c12;
+}
+
+.exam-box {
+  border-left-color: #3366cc;
+}
+
+.teacher-box {
+  border-left-color: #8e44ad;
+}
+
+ul {
+  padding-left: 22px;
+}
+
+li {
+  margin-bottom: 9px;
+}
+
+/* EMPTY */
+.empty {
+  text-align: center;
+  padding: 40px 20px;
+  color: #657084;
+}
+
+/* FOOTER */
+footer {
+  text-align: center;
+  padding: 25px;
+  color: #687386;
+  font-size: 13px;
+}
+
+/* MOBILE */
+@media (max-width: 600px) {
+  header h1 {
+    font-size: 25px;
+  }
+
+  .subject-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .subject-card {
+    min-height: 100px;
+  }
+
+  .content {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+}
+</style>
+
+
+<div class="app">
+
+  <header>
+    <h1>📚 SchoolMate SA</h1>
+    <p>CAPS learning support for South African learners and teachers</p>
+  </header>
+
+  <div class="controls">
+
+    <div class="control">
+      <label for="gradeSelect">Choose Grade</label>
+      <select id="gradeSelect">
+        <option value="1">Grade 1</option>
+        <option value="2">Grade 2</option>
+        <option value="3">Grade 3</option>
+        <option value="4">Grade 4</option>
+        <option value="5">Grade 5</option>
+        <option value="6">Grade 6</option>
+        <option value="7">Grade 7</option>
+        <option value="8">Grade 8</option>
+        <option value="9">Grade 9</option>
+        <option value="10">Grade 10</option>
+        <option value="11">Grade 11</option>
+        <option value="12">Grade 12</option>
+      </select>
+    </div>
+
+    <div class="control">
+      <label for="roleSelect">Choose Role</label>
+      <select id="roleSelect">
+        <option value="learner">Learner</option>
+        <option value="teacher">Teacher</option>
+      </select>
+    </div>
+
+  </div>
+
+  <div class="search-box">
+    <input
+      id="searchInput"
+      type="text"
+      placeholder="Search subjects..."
+    >
+  </div>
+
+  <h2 class="section-title">Subjects</h2>
+
+  <div id="subjectGrid" class="subject-grid"></div>
+
+  <div id="contentArea" class="content">
+    <div class="empty">
+      <h2>Choose a subject</h2>
+      <p>Select a subject above to view CAPS notes, activities and exam questions.</p>
+    </div>
+  </div>
+
+  <footer>
+    SchoolMate SA • Learning support for Grades 1–12
+  </footer>
+
+</div>
+
+
+<script>
+
+/* =========================================
+   SCHOOLMATE SA
+   SUBJECTS
+========================================= */
+
+const subjectsByPhase = {
+
+  foundation: [
+    "Home Language",
+    "First Additional Language",
+    "Mathematics",
+    "Life Skills"
+  ],
+
+  intermediate: [
+    "Home Language",
+    "First Additional Language",
+    "Mathematics",
+    "Natural Sciences & Technology",
+    "Social Sciences",
+    "Life Skills"
+  ],
+
+  senior: [
+    "Home Language",
+    "First Additional Language",
+    "Mathematics",
+    "Natural Sciences",
+    "Social Sciences",
+    "Technology",
+    "Economic & Management Sciences",
+    "Life Orientation",
+    "Creative Arts"
+  ],
+
+  fet: [
+    "Home Language",
+    "First Additional Language",
+    "Mathematics",
+    "Life Orientation",
+    "Physical Sciences",
+    "Life Sciences",
+    "Accounting",
+    "Business Studies",
+    "Economics",
+    "Geography",
+    "History",
+    "Mathematical Literacy",
+    "Computer Applications Technology",
+    "Information Technology"
+  ]
+
+};
+
+
+/* =========================================
+   SUBJECT TOPICS
+========================================= */
+
+const topics = {
+
+  "Home Language": [
+    "Reading and comprehension",
+    "Writing",
+    "Grammar",
+    "Literature"
+  ],
+
+  "First Additional Language": [
+    "Reading",
+    "Writing",
+    "Grammar",
+    "Vocabulary"
+  ],
+
+  "Mathematics": [
+    "Numbers and operations",
+    "Patterns and relationships",
+    "Geometry",
+    "Measurement",
+    "Data handling"
+  ],
+
+  "Life Skills": [
+    "Personal development",
+    "Health and safety",
+    "Social responsibility",
+    "Physical development"
+  ],
+
+  "Natural Sciences & Technology": [
+    "Matter and materials",
+    "Energy and change",
+    "Life and living",
+    "Planet Earth and beyond"
+  ],
+
+  "Social Sciences": [
+    "History",
+    "Geography",
+    "Map skills",
+    "Society and citizenship"
+  ],
+
+  "Natural Sciences": [
+    "Life and living",
+    "Matter and materials",
+    "Energy and change",
+    "Earth and space"
+  ],
+
+  "Technology": [
+    "Design process",
+    "Structures",
+    "Processing",
+    "Systems and control"
+  ],
+
+  "Economic & Management Sciences": [
+    "Needs and wants",
+    "The economy",
+    "Entrepreneurship",
+    "Financial literacy"
+  ],
+
+  "Life Orientation": [
+    "Development of self",
+    "Health and social responsibility",
+    "Citizenship",
+    "Career choices"
+  ],
+
+  "Creative Arts": [
+    "Visual arts",
+    "Music",
+    "Drama",
+    "Dance"
+  ],
+
+  "Physical Sciences": [
+    "Mechanics",
+    "Waves and sound",
+    "Electricity",
+    "Matter and chemical change"
+  ],
+
+  "Life Sciences": [
+    "Cells",
+    "Genetics",
+    "Human reproduction",
+    "Ecology"
+  ],
+
+  "Accounting": [
+    "Accounting concepts",
+    "Journals and ledgers",
+    "Financial statements",
+    "Financial analysis"
+  ],
+
+  "Business Studies": [
+    "Business environments",
+    "Business ventures",
+    "Business operations",
+    "Business roles"
+  ],
+
+  "Economics": [
+    "Microeconomics",
+    "Macroeconomics",
+    "Markets",
+    "Economic indicators"
+  ],
+
+  "Geography": [
+    "Mapwork",
+    "Climate",
+    "Geomorphology",
+    "Human geography"
+  ],
+
+  "History": [
+    "Historical sources",
+    "Colonialism",
+    "Apartheid and democracy",
+    "Global history"
+  ],
+
+  "Mathematical Literacy": [
+    "Numbers and calculations",
+    "Finance",
+    "Measurement",
+    "Data handling"
+  ],
+
+  "Computer Applications Technology": [
+    "Hardware and software",
+    "Networks",
+    "Data and information",
+    "Word processing and spreadsheets"
+  ],
+
+  "Information Technology": [
+    "Algorithms",
+    "Programming",
+    "Data structures",
+    "Systems and networks"
+  ]
+
+};
+
+
+/* =========================================
+   PHASE FUNCTION
+========================================= */
+
+function getPhase(grade) {
+
+  if (grade <= 3) {
+    return "foundation";
+  }
+
+  if (grade <= 6) {
+    return "intermediate";
+  }
+
+  if (grade <= 9) {
+    return "senior";
+  }
+
+  return "fet";
+}
+
+
+/* =========================================
+   SUBJECT ICONS
+========================================= */
+
+const icons = {
+
+  "Home Language": "📖",
+  "First Additional Language": "🗣️",
+  "Mathematics": "🔢",
+  "Life Skills": "🌱",
+  "Natural Sciences & Technology": "🔬",
+  "Social Sciences": "🌍",
+  "Natural Sciences": "🧪",
+  "Technology": "⚙️",
+  "Economic & Management Sciences": "💼",
+  "Life Orientation": "🧭",
+  "Creative Arts": "🎨",
+  "Physical Sciences": "⚡",
+  "Life Sciences": "🧬",
+  "Accounting": "🧾",
+  "Business Studies": "🏢",
+  "Economics": "📊",
+  "Geography": "🗺️",
+  "History": "🏛️",
+  "Mathematical Literacy": "💰",
+  "Computer Applications Technology": "💻",
+  "Information Technology": "🖥️"
+
+};
+
+
+/* =========================================
+   NOTES
+========================================= */
+
+function createNotes(grade, subject) {
+
+  const list = topics[subject] || [
+    "Key concepts",
+    "Important skills",
+    "Examples",
+    "Revision"
+  ];
+
+  return `
+    <div class="note-box">
+
+      <h3>${subject} — Grade ${grade}</h3>
+
+      <p>
+        This section gives you CAPS-aligned study guidance for
+        <strong>${subject}</strong>.
+      </p>
+
+      <h3>1. ${list[0]}</h3>
+
+      <p>
+        Learn the important concepts, definitions and examples
+        connected to ${list[0].toLowerCase()}.
+        Try to explain the main ideas in your own words.
+      </p>
+
+      <h3>2. ${list[1]}</h3>
+
+      <p>
+        Practise the main skills connected to ${list[1].toLowerCase()}.
+        Work step by step and check your answers carefully.
+      </p>
+
+      <h3>3. ${list[2]}</h3>
+
+      <p>
+        Use examples to understand ${list[2].toLowerCase()}.
+        Connect what you learn to classroom activities and
+        everyday situations where possible.
+      </p>
+
+      <h3>4. ${list[3]}</h3>
+
+      <p>
+        Revise the important information from ${list[3].toLowerCase()}.
+        Make short summaries and test yourself without looking at
+        your notes.
+      </p>
+
+    </div>
+  `;
+}
+
+
+/* =========================================
+   ACTIVITIES
+========================================= */
+
+function createActivities(grade, subject) {
+
+  const list = topics[subject] || ["the topic"];
+
+  return `
+
+    <div class="activity-box">
+
+      <h3>Activity 1</h3>
+
+      <p>
+        Write down five important terms from
+        <strong>${list[0]}</strong>.
+        Give a short meaning for each term.
+      </p>
+
+    </div>
+
+    <div class="activity-box">
+
+      <h3>Activity 2</h3>
+
+      <p>
+        Create a one-page summary explaining
+        <strong>${list[1]}</strong>.
+      </p>
+
+    </div>
+
+    <div class="activity-box">
+
+      <h3>Activity 3</h3>
+
+      <p>
+        Answer five questions about
+        <strong>${list[2]}</strong>.
+      </p>
+
+    </div>
+
+    <div class="activity-box">
+
+      <h3>Activity 4</h3>
+
+      <p>
+        Create a short quiz for another learner
+        covering the main ideas in ${subject}.
+      </p>
+
+    </div>
+
+  `;
+}
+
+
+/* =========================================
+   EXAM QUESTIONS
+========================================= */
+
+function createExamQuestions(grade, subject) {
+
+  const list = topics[subject] || ["the subject"];
+
+  return `
+
+    <div class="exam-box">
+
+      <h3>Question 1</h3>
+
+      <p>
+        Define two important concepts from
+        <strong>${list[0]}</strong>.
+      </p>
+
+    </div>
+
+    <div class="exam-box">
+
+      <h3>Question 2</h3>
+
+      <p>
+        Explain one important idea from
+        <strong>${list[1]}</strong>.
+        Give an example where appropriate.
+      </p>
+
+    </div>
+
+    <div class="exam-box">
+
+      <h3>Question 3</h3>
+
+      <p>
+        Apply what you have learned about
+        <strong>${list[2]}</strong>
+        to a new situation.
+      </p>
+
+    </div>
+
+    <div class="exam-box">
+
+      <h3>Question 4</h3>
+
+      <p>
+        Write a short paragraph explaining what
+        you would revise before a test on ${subject}.
+      </p>
+
+    </div>
+
+  `;
+}
+
+
+/* =========================================
+   TEACHER CONTENT
+========================================= */
+
+function createTeacherBox(subject, grade) {
+
+  return `
+
+    <div class="teacher-box">
+
+      <h3>👩‍🏫 Teacher Support</h3>
+
+      <p>
+        Suggested classroom approach for Grade ${grade}
+        ${subject}:
+      </p>
+
+      <ul>
+
+        <li>
+          Introduce the key vocabulary before the lesson.
+        </li>
+
+        <li>
+          Explain the main concept using a simple example.
+        </li>
+
+        <li>
+          Allow learners to complete the activity independently.
+        </li>
+
+        <li>
+          Discuss answers and correct common mistakes.
+        </li>
+
+        <li>
+          Use the exam questions as revision or assessment practice.
+        </li>
+
+      </ul>
+
+    </div>
+
+  `;
+}
+
+
+/* =========================================
+   APP VARIABLES
+========================================= */
+
+const gradeSelect = document.getElementById("gradeSelect");
+const roleSelect = document.getElementById("roleSelect");
+const searchInput = document.getElementById("searchInput");
+const subjectGrid = document.getElementById("subjectGrid");
+const contentArea = document.getElementById("contentArea");
+
+let selectedSubject = "";
+
+
+/* =========================================
+   DISPLAY SUBJECTS
+========================================= */
+
+function displaySubjects() {
+
+  const grade = Number(gradeSelect.value);
+  const phase = getPhase(grade);
+  const subjects = subjectsByPhase[phase];
+
+  const search = searchInput.value.toLowerCase().trim();
+
+  subjectGrid.innerHTML = "";
+
+  const filteredSubjects = subjects.filter(function(subject) {
+
+    return subject.toLowerCase().includes(search);
+
+  });
+
+
+  if (filteredSubjects.length === 0) {
+
+    subjectGrid.innerHTML = `
+      <div class="empty">
+        <p>No subjects found.</p>
+      </div>
+    `;
+
+    return;
+  }
+
+
+  filteredSubjects.forEach(function(subject) {
+
+    const card = document.createElement("div");
+
+    card.className = "subject-card";
+
+    if (subject === selectedSubject) {
+      card.classList.add("active");
+    }
+
+    card.innerHTML = `
+
+      <div class="subject-icon">
+        ${icons[subject] || "📚"}
+      </div>
+
+      <div class="subject-name">
+        ${subject}
+      </div>
+
+    `;
+
+
+    card.addEventListener("click", function() {
+
+      selectedSubject = subject;
+
+      displaySubjects();
+
+      displayContent();
+
+    });
+
+
+    subjectGrid.appendChild(card);
+
+  });
+
+}
+
+
+/* =========================================
+   DISPLAY CONTENT
+========================================= */
+
+function displayContent() {
+
+  if (!selectedSubject) {
+
+    contentArea.innerHTML = `
+
+      <div class="empty">
+
+        <h2>Choose a subject</h2>
+
+        <p>
+          Select a subject above to view
+          Notes, Activities and Exam Q&A.
+        </p>
+
+      </div>
+
+    `;
+
+    return;
+  }
+
+
+  const grade = Number(gradeSelect.value);
+  const role = roleSelect.value;
+
+
+  contentArea.innerHTML = `
+
+    <div class="content-header">
+
+      <h2>
+        ${icons[selectedSubject] || "📚"}
+        ${selectedSubject}
+      </h2>
+
+      <p>
+        Grade ${grade} • ${role === "teacher" ? "Teacher" : "Learner"}
+      </p>
+
+    </div>
+
+
+    <div class="tabs">
+
+      <button class="tab active" data-tab="notes">
+        📚 Notes
+      </button>
+
+      <button class="tab" data-tab="activities">
+        ✏️ Activities
+      </button>
+
+      <button class="tab" data-tab="exam">
+        📝 Exam Q&A
+      </button>
+
+    </div>
+
+
+    <div id="tabContent" class="tab-content"></div>
+
+  `;
+
+
+  const tabButtons = contentArea.querySelectorAll(".tab");
+  const tabContent = document.getElementById("tabContent");
+
+
+  function showTab(tabName) {
+
+    tabButtons.forEach(function(button) {
+
+      button.classList.remove("active");
+
+      if (button.dataset.tab === tabName) {
+        button.classList.add("active");
+      }
+
+    });
+
+
+    if (tabName === "notes") {
+
+      tabContent.innerHTML =
+        createNotes(grade, selectedSubject);
+
+    }
+
+
+    if (tabName === "activities") {
+
+      tabContent.innerHTML =
+        createActivities(grade, selectedSubject);
+
+    }
+
+
+    if (tabName === "exam") {
+
+      tabContent.innerHTML =
+        createExamQuestions(grade, selectedSubject);
+
+    }
+
+
+    if (role === "teacher") {
+
+      tabContent.innerHTML +=
+        createTeacherBox(selectedSubject, grade);
+
+    }
+
+  }
+
+
+  tabButtons.forEach(function(button) {
+
+    button.addEventListener("click", function() {
+
+      showTab(button.dataset.tab);
+
+    });
+
+  });
+
+
+  showTab("notes");
+
+}
+
+
+/* =========================================
+   GRADE CHANGE
+========================================= */
+
+gradeSelect.addEventListener("change", function() {
+
+  selectedSubject = "";
+
+  displaySubjects();
+
+  displayContent();
+
+});
+
+
+/* =========================================
+   ROLE CHANGE
+========================================= */
+
+roleSelect.addEventListener("change", function() {
+
+  displayContent();
+
+});
+
+
+/* =========================================
+   SEARCH
+========================================= */
+
+searchInput.addEventListener("input", function() {
+
+  displaySubjects();
+
+});
+
+
+/* =========================================
+   START APP
+========================================= */
+
+displaySubjects();
+
+displayContent();
+
+  </script>
